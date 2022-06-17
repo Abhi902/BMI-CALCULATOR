@@ -1,8 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+import 'icon.dart';
+import 'package:bmi/reusable.dart';
 
 const bottomheight = 80;
 const activecardcolor = Color(0xff131e33);
+const inactivecardcolor = Color(0xFF111328);
 void main() {
   runApp(const MyApp());
 }
@@ -16,6 +19,9 @@ class MyApp extends StatefulWidget {
 
 class _MyAppState extends State<MyApp> {
   @override
+  Color malecardcolor = inactivecardcolor;
+  Color femalecardcolor = inactivecardcolor;
+
   Widget build(BuildContext context) {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
@@ -35,15 +41,18 @@ class _MyAppState extends State<MyApp> {
             Row(
               children: <Widget>[
                 Expanded(
-                  child: reusablewidget(
-                    colour: activecardcolor,
-                    cardchild:
-                        reusablecardchilds(FontAwesomeIcons.mars, 'MALE'),
+                  child: GestureDetector(
+                    onTap: () {},
+                    child: reusablewidget(
+                      colour: inactivecardcolor,
+                      cardchild:
+                          reusablecardchilds(FontAwesomeIcons.mars, 'MALE'),
+                    ),
                   ),
                 ),
                 Expanded(
                   child: reusablewidget(
-                    colour: activecardcolor,
+                    colour: inactivecardcolor,
                     cardchild:
                         reusablecardchilds(FontAwesomeIcons.venus, 'FEMALE'),
                   ),
@@ -73,7 +82,7 @@ class _MyAppState extends State<MyApp> {
                   child: Container(
                     color: Color(0xFFeb1555),
                     width: double.infinity,
-                    height: 61.3,
+                    height: 49,
                   ),
                 )
               ],
@@ -81,56 +90,6 @@ class _MyAppState extends State<MyApp> {
           ],
         ),
       ),
-    );
-  }
-}
-
-class reusablecardchilds extends StatelessWidget {
-  @override
-  IconData? icon;
-  String txt = '';
-
-  reusablecardchilds(IconData ic, String tx) {
-    this.icon = ic;
-    this.txt = tx;
-  }
-
-  Widget build(BuildContext context) {
-    return Column(
-      mainAxisAlignment: MainAxisAlignment.center,
-      children: <Widget>[
-        Icon(
-          icon,
-          size: 80,
-        ),
-        SizedBox(height: 15),
-        Text(
-          txt,
-          style: TextStyle(
-            fontSize: 18.0,
-            color: Color(0xFF8D8E98),
-          ),
-        ),
-      ],
-    );
-  }
-}
-
-class reusablewidget extends StatelessWidget {
-  reusablewidget({required this.colour, this.cardchild});
-  Color colour;
-  Widget? cardchild;
-  @override
-  Widget build(BuildContext context) {
-    return Container(
-      margin: EdgeInsets.all(15),
-      decoration: BoxDecoration(
-        borderRadius: BorderRadius.circular(15),
-        color: colour,
-      ),
-      child: cardchild,
-      height: 180,
-      width: 150,
     );
   }
 }
