@@ -27,9 +27,6 @@ class _MyAppState extends State<MyApp> {
   Gender? seletedgender;
 
   @override
-  Color malecardcolor = inactivecardcolor;
-  Color femalecardcolor = inactivecardcolor;
-
   Widget build(BuildContext context) {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
@@ -49,7 +46,6 @@ class _MyAppState extends State<MyApp> {
             Row(
               children: <Widget>[
                 Expanded(
-<<<<<<< HEAD
                   child: reusablewidget(
                     onpressed: () {
                       setState(() {
@@ -61,20 +57,10 @@ class _MyAppState extends State<MyApp> {
                         : inactivecardcolor,
                     cardchild:
                         reusablecardchilds(FontAwesomeIcons.mars, 'MALE'),
-=======
-                  child: GestureDetector(
-                    onTap: () {},
-                    child: reusablewidget(
-                      colour: inactivecardcolor,
-                      cardchild:
-                          reusablecardchilds(FontAwesomeIcons.mars, 'MALE'),
-                    ),
->>>>>>> 98fcc2d5d28e345c6188f8fb5d2364b54bb3019a
                   ),
                 ),
                 Expanded(
                   child: reusablewidget(
-<<<<<<< HEAD
                     onpressed: () {
                       setState(() {
                         seletedgender = Gender.female;
@@ -83,9 +69,6 @@ class _MyAppState extends State<MyApp> {
                     colour: seletedgender == Gender.female
                         ? activecardcolor
                         : inactivecardcolor,
-=======
-                    colour: inactivecardcolor,
->>>>>>> 98fcc2d5d28e345c6188f8fb5d2364b54bb3019a
                     cardchild:
                         reusablecardchilds(FontAwesomeIcons.venus, 'FEMALE'),
                   ),
