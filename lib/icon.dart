@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'conststorage.dart';
 
 class reusablecardchilds extends StatelessWidget {
   @override
@@ -21,10 +22,7 @@ class reusablecardchilds extends StatelessWidget {
         SizedBox(height: 15),
         Text(
           txt,
-          style: TextStyle(
-            fontSize: 18.0,
-            color: Color(0xFF8D8E98),
-          ),
+          style: currenttextstyle,
         ),
       ],
     );
