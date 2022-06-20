@@ -3,6 +3,7 @@ import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'icon.dart';
 import 'package:bmi/reusable.dart';
 import 'conststorage.dart';
+import 'package:bmi/results_page.dart';
 
 const TextStyle currenttextstyle = TextStyle(
   fontSize: 18.0,
@@ -14,7 +15,17 @@ const activecardcolor = Color(0xff131e33);
 const inactivecardcolor = Color(0xFF111328);
 
 void main() {
-  runApp(MyApp());
+  runApp(
+    MaterialApp(
+      debugShowCheckedModeBanner: false,
+      theme: ThemeData.dark().copyWith(
+        primaryColor: Color(0XFF0A0E21),
+        scaffoldBackgroundColor: Color(0XFF0A0E21),
+      ),
+      title: "myapp",
+      home: MyApp(),
+    ),
+  );
 }
 
 enum Gender {
@@ -33,132 +44,249 @@ class _MyAppState extends State<MyApp> {
 
   Gender? seletedgender;
   int height = 180;
+  int weight = 60;
+  int age = 18;
 
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
-      debugShowCheckedModeBanner: false,
-      theme: ThemeData.dark().copyWith(
-        primaryColor: Color(0XFF0A0E21),
-        scaffoldBackgroundColor: Color(0XFF0A0E21),
-      ),
-      home: Scaffold(
-        appBar: AppBar(
-          backgroundColor: Color(0xFF0A0E21),
-          title: Center(
-            child: Text('BMI CALCULATOR'),
-          ),
+    return Scaffold(
+      appBar: AppBar(
+        backgroundColor: Color(0xFF0A0E21),
+        title: Center(
+          child: Text('BMI CALCULATOR'),
         ),
-        body: Column(
-          children: <Widget>[
-            Row(
-              children: <Widget>[
-                Expanded(
-                  child: reusablewidget(
-                    onpressed: () {
-                      setState(() {
-                        seletedgender = Gender.male;
-                      });
-                    },
-                    colour: seletedgender == Gender.male
-                        ? activecardcolor
-                        : inactivecardcolor,
-                    cardchild:
-                        reusablecardchilds(FontAwesomeIcons.mars, 'MALE'),
-                  ),
+      ),
+      body: Column(
+        children: <Widget>[
+          Row(
+            children: <Widget>[
+              Expanded(
+                child: reusablewidget(
+                  onpressed: () {
+                    setState(() {
+                      seletedgender = Gender.male;
+                    });
+                  },
+                  colour: seletedgender == Gender.male
+                      ? activecardcolor
+                      : inactivecardcolor,
+                  cardchild: reusablecardchilds(FontAwesomeIcons.mars, 'MALE'),
                 ),
-                Expanded(
-                  child: reusablewidget(
-                    onpressed: () {
-                      setState(() {
-                        seletedgender = Gender.female;
-                      });
-                    },
-                    colour: seletedgender == Gender.female
-                        ? activecardcolor
-                        : inactivecardcolor,
-                    cardchild:
-                        reusablecardchilds(FontAwesomeIcons.venus, 'FEMALE'),
-                  ),
+              ),
+              Expanded(
+                child: reusablewidget(
+                  onpressed: () {
+                    setState(() {
+                      seletedgender = Gender.female;
+                    });
+                  },
+                  colour: seletedgender == Gender.female
+                      ? activecardcolor
+                      : inactivecardcolor,
+                  cardchild:
+                      reusablecardchilds(FontAwesomeIcons.venus, 'FEMALE'),
                 ),
-              ],
-            ),
-            Row(
-              children: <Widget>[
-                Expanded(
-                  child: reusablewidget(
-                      cardchild: Column(
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        children: <Widget>[
-                          Text(
-                            'HEIGHT',
-                            style: currenttextstyle,
+              ),
+            ],
+          ),
+          Row(
+            children: <Widget>[
+              Expanded(
+                child: reusablewidget(
+                    cardchild: Column(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: <Widget>[
+                        Text(
+                          'HEIGHT',
+                          style: currenttextstyle,
+                        ),
+                        Row(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          crossAxisAlignment: CrossAxisAlignment.baseline,
+                          textBaseline: TextBaseline.alphabetic,
+                          children: <Widget>[
+                            Text(
+                              height.toString(),
+                              style: TextStyle(
+                                  fontSize: 80, fontWeight: FontWeight.w900),
+                            ),
+                            Text('cm'),
+                          ],
+                        ),
+                        SliderTheme(
+                          data: SliderTheme.of(context).copyWith(
+                            inactiveTrackColor: Color(0xff8d8898),
+                            activeTrackColor: Colors.white,
+                            thumbColor: Color(0XFFEB1555),
+                            overlayColor: Color(0XFFEB1555),
+                            thumbShape:
+                                RoundSliderThumbShape(enabledThumbRadius: 15),
+                            overlayShape:
+                                RoundSliderOverlayShape(overlayRadius: 30),
                           ),
-                          Row(
-                            mainAxisAlignment: MainAxisAlignment.center,
-                            crossAxisAlignment: CrossAxisAlignment.baseline,
-                            textBaseline: TextBaseline.alphabetic,
-                            children: <Widget>[
-                              Text(
-                                height.toString(),
-                                style: TextStyle(
-                                    fontSize: 80, fontWeight: FontWeight.w900),
+                          child: Slider(
+                            value: height.toDouble(),
+                            max: 220,
+                            min: 150,
+                            onChanged: (double newvalue) {
+                              setState(() {
+                                height = newvalue.round();
+                              });
+                            },
+                          ),
+                        ),
+                      ],
+                    ),
+                    colour: activecardcolor),
+              ),
+            ],
+          ),
+          Row(
+            children: <Widget>[
+              Expanded(
+                child: reusablewidget(
+                    cardchild: Column(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: <Widget>[
+                        Text(
+                          'WEIGHT',
+                          style: currenttextstyle,
+                        ),
+                        Text(
+                          weight.toString(),
+                          style: TextStyle(
+                            fontSize: 80,
+                            fontWeight: FontWeight.w900,
+                          ),
+                        ),
+                        Row(
+                          children: <Widget>[
+                            Padding(
+                              padding: const EdgeInsets.all(8.0),
+                              child: Roundbutton(
+                                icon: FontAwesomeIcons.minus,
+                                onpressed: () {
+                                  setState(() {
+                                    weight--;
+                                  });
+                                },
                               ),
-                              Text('cm'),
-                            ],
-                          ),
-                          SliderTheme(
-                            data: SliderTheme.of(context).copyWith(
-                              inactiveTrackColor: Color(0xff8d8898),
-                              activeTrackColor: Colors.white,
-                              thumbColor: Color(0XFFEB1555),
-                              overlayColor: Color(0XFFEB1555),
-                              thumbShape:
-                                  RoundSliderThumbShape(enabledThumbRadius: 15),
-                              overlayShape:
-                                  RoundSliderOverlayShape(overlayRadius: 30),
                             ),
-                            child: Slider(
-                              value: height.toDouble(),
-                              max: 220,
-                              min: 150,
-                              onChanged: (double newvalue) {
-                                setState(() {
-                                  height = newvalue.round();
-                                });
-                              },
+                            SizedBox(width: 10),
+                            Padding(
+                              padding: const EdgeInsets.all(8.0),
+                              child: Roundbutton(
+                                icon: FontAwesomeIcons.plus,
+                                onpressed: () {
+                                  setState(() {
+                                    weight++;
+                                  });
+                                },
+                              ),
                             ),
+                          ],
+                        )
+                      ],
+                    ),
+                    colour: activecardcolor),
+              ),
+              Expanded(
+                child: reusablewidget(
+                    cardchild: Column(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: <Widget>[
+                        Text(
+                          'AGE',
+                          style: currenttextstyle,
+                        ),
+                        Text(
+                          age.toString(),
+                          style: TextStyle(
+                            fontSize: 80,
+                            fontWeight: FontWeight.w900,
                           ),
-                        ],
+                        ),
+                        Row(
+                          children: <Widget>[
+                            Padding(
+                              padding: const EdgeInsets.all(8.0),
+                              child: Roundbutton(
+                                  icon: FontAwesomeIcons.minus,
+                                  onpressed: () {
+                                    setState(() {
+                                      age--;
+                                    });
+                                  }),
+                            ),
+                            SizedBox(width: 10),
+                            Padding(
+                              padding: const EdgeInsets.all(8.0),
+                              child: Roundbutton(
+                                  icon: FontAwesomeIcons.plus,
+                                  onpressed: () {
+                                    setState(() {
+                                      age++;
+                                    });
+                                  }),
+                            ),
+                          ],
+                        ),
+                      ],
+                    ),
+                    colour: activecardcolor),
+              ),
+            ],
+          ),
+          Row(
+            children: <Widget>[
+              Expanded(
+                child: GestureDetector(
+                  onTap: () {
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                        builder: (context) => results_page(),
                       ),
-                      colour: activecardcolor),
-                ),
-              ],
-            ),
-            Row(
-              children: <Widget>[
-                Expanded(
-                  child: reusablewidget(colour: activecardcolor),
-                ),
-                Expanded(
-                  child: reusablewidget(colour: activecardcolor),
-                ),
-              ],
-            ),
-            Row(
-              children: <Widget>[
-                Expanded(
+                    );
+                  },
                   child: Container(
+                    child: Center(
+                        child: Text('CALCULATE', style: largebuttontextstyle)),
                     color: Color(0xFFeb1555),
                     width: double.infinity,
                     height: 49,
+                    padding: EdgeInsets.only(bottom: 10),
                   ),
-                )
-              ],
-            )
-          ],
-        ),
+                ),
+              )
+            ],
+          )
+        ],
       ),
     );
   }
 }
+
+class Roundbutton extends StatelessWidget {
+  Roundbutton({required this.icon, required this.onpressed});
+  IconData icon;
+  final VoidCallback onpressed;
+
+  @override
+  Widget build(BuildContext context) {
+    return RawMaterialButton(
+      shape: RoundedRectangleBorder(
+        borderRadius: BorderRadius.circular(5.0),
+      ),
+      constraints: BoxConstraints(minWidth: 50.0, minHeight: 36.0),
+      child: Icon(icon),
+      fillColor: Color(0xff4c4f5e),
+      onPressed: onpressed,
+    );
+  }
+}
+
+const largebuttontextstyle = TextStyle(
+  fontSize: 25,
+  fontWeight: FontWeight.w900,
+);
