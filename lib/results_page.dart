@@ -4,7 +4,15 @@ import 'package:bmi/reusable.dart';
 import 'package:flutter/material.dart';
 
 class results_page extends StatelessWidget {
-  const results_page({Key? key}) : super(key: key);
+  results_page(String ans, String say, String inter) {
+    this.ans = ans;
+    this.say = say;
+    this.inter = inter;
+  }
+
+  String ans = "";
+  String say = "";
+  String inter = "";
 
   @override
   Widget build(BuildContext context) {
@@ -33,7 +41,7 @@ class results_page extends StatelessWidget {
                 children: <Widget>[
                   SizedBox(height: 30),
                   Text(
-                    'NORMAL',
+                    say,
                     style: TextStyle(
                       color: Color(0xff24d876),
                       fontSize: 30,
@@ -42,7 +50,7 @@ class results_page extends StatelessWidget {
                   ),
                   SizedBox(height: 80),
                   Text(
-                    '18.5',
+                    ans,
                     style: TextStyle(
                       color: Colors.white,
                       fontSize: 80,
@@ -51,7 +59,7 @@ class results_page extends StatelessWidget {
                   ),
                   SizedBox(height: 80),
                   Text(
-                    'your bmi result is quite low',
+                    inter,
                     textAlign: TextAlign.center,
                     style: TextStyle(
                       color: Colors.white,

@@ -4,12 +4,12 @@ import 'icon.dart';
 import 'package:bmi/reusable.dart';
 import 'conststorage.dart';
 import 'package:bmi/results_page.dart';
+import 'package:bmi/calculator_brain.dart';
 
 const TextStyle currenttextstyle = TextStyle(
   fontSize: 18.0,
   color: Color(0xFF8D8E98),
 );
-
 const bottomheight = 80;
 const activecardcolor = Color(0xff131e33);
 const inactivecardcolor = Color(0xFF111328);
@@ -241,10 +241,13 @@ class _MyAppState extends State<MyApp> {
             children: <Widget>[
               Expanded(
                 child: bottombuttom(() {
+                  Bmibrain obj = Bmibrain(height, weight);
+
                   Navigator.push(
                     context,
                     MaterialPageRoute(
-                      builder: (context) => results_page(),
+                      builder: (context) => results_page(
+                          obj.calculate(), obj.getres(), obj.giveinter()),
                     ),
                   );
                 }, 'CALCULATE'),
