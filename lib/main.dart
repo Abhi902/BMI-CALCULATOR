@@ -240,28 +240,38 @@ class _MyAppState extends State<MyApp> {
           Row(
             children: <Widget>[
               Expanded(
-                child: GestureDetector(
-                  onTap: () {
-                    Navigator.push(
-                      context,
-                      MaterialPageRoute(
-                        builder: (context) => results_page(),
-                      ),
-                    );
-                  },
-                  child: Container(
-                    child: Center(
-                        child: Text('CALCULATE', style: largebuttontextstyle)),
-                    color: Color(0xFFeb1555),
-                    width: double.infinity,
-                    height: 49,
-                    padding: EdgeInsets.only(bottom: 10),
-                  ),
-                ),
+                child: bottombuttom(() {
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                      builder: (context) => results_page(),
+                    ),
+                  );
+                }, 'CALCULATE'),
               )
             ],
           )
         ],
+      ),
+    );
+  }
+}
+
+class bottombuttom extends StatelessWidget {
+  bottombuttom(this.ontap, this.text);
+  VoidCallback ontap;
+  String text = '';
+
+  @override
+  Widget build(BuildContext context) {
+    return GestureDetector(
+      onTap: ontap,
+      child: Container(
+        child: Center(child: Text('CALCULATE', style: largebuttontextstyle)),
+        color: Color(0xFFeb1555),
+        width: double.infinity,
+        height: 49,
+        padding: EdgeInsets.only(bottom: 10),
       ),
     );
   }
